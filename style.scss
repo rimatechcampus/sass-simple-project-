@@ -1,0 +1,203 @@
+//! colors 
+$primary-color:#bb1869;
+$heading-color:#fff;
+$sub-heading-color:#f4f4f4;
+$body-color: #f4f4f4;
+$links-color:#fff;
+$links-color-hover: yellow;
+
+
+//! fonts 
+$body-font: 'Open Sans',
+sans-serif;
+
+
+// ! buttons  functions 
+
+
+
+@function text-color($color) {
+    @if (lightness($color) > 70%) {
+
+        @return #333;
+    }
+
+    @else {
+        @return #fff;
+    }
+}
+
+@function button-color($background) {
+    @if (lightness($background) > 70) {
+        @return lighten($primary-color, 10%);
+    }
+
+    @else {
+        @return darken($primary-color, 20%);
+    }
+}
+
+//! set bg and text based on primary color
+
+@mixin background-color($color) {
+    background-color: $color;
+    color: text-color($color);
+
+}
+
+// ! loop steps for margin and padding
+
+$steps : (1, 2, 3, 4, 5, 6);
+
+@each $step in $steps {
+
+    // .my-1 {
+    .m-#{$step} {
+        margin: #{$step*10}px;
+    }
+
+    .my-#{$step} {
+        margin: #{$step* 10}px 0;
+    }
+
+    .mx-#{$step} {
+        margin: 0 #{$step*19}px;
+    }
+
+    .p-#{$step} {
+        padding: #{$step*10}px;
+    }
+
+    .py-#{$step} {
+        padding: #{$step*10}px 0;
+    }
+
+    .px-#{$step} {
+        padding: 0 #{$step*10}px;
+    }
+
+
+}
+
+// *********************************
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: text-color($primary-color);
+    text-decoration: none;
+    // &:hover {
+    //     color: yellow;
+    // }
+}
+
+body {
+    background-color: $body-color;
+    font-family: $body-font;
+    line-height: 1.6;
+}
+
+
+
+
+.showcase {
+
+
+    // background-color: $primary-color;
+    // color: text-color($primary-color);
+
+    //! mixins 
+    @include background-color($primary-color);
+
+
+
+    height: 600px;
+    padding: 15px 25px;
+
+    %display {
+        display: flex;
+        align-items: center;
+    }
+
+    nav {
+        @extend %display;
+        justify-content: space-between;
+
+        ul {
+            display: flex;
+            list-style-type: none;
+
+            li {
+                padding: 15px;
+            }
+        }
+
+        a {
+            &:hover {
+                color: $links-color-hover;
+            }
+        }
+
+    }
+
+    // ! showcase content 
+
+    &-content {
+        height: 100%;
+        @extend %display;
+        justify-content: center;
+
+
+
+        // ! buttons 
+
+
+        %btn {
+            display: inline-block;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+
+
+        .btn-primary {
+            @extend %btn;
+            // background-color: lighten($primary-color, 10%);
+            // background-color: darken($primary-color, 10%);
+
+            background-color: button-color($primary-color);
+
+        }
+
+        .btn-secondary {
+            @extend %btn;
+            background-color: blue;
+        }
+
+        img {
+            width: 50%;
+        }
+
+    }
+
+}
+
+
+// ! container 
+
+.container {
+
+    // border: 1px solid black;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+
+}
+
+
+
+// ! buttons 
